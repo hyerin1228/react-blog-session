@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import DefaultLayout from "./layouts/DefaultLayout";
+import HomePage from "./pages/HomePage";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
+import TilDetailPage from "./pages/TilDetailPage";
+import WriteTilPage from "./pages/WriteTilPage";
+import store from "./store";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<DefaultLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/tils/write" element={<WriteTilPage />} />
+            <Route path="/tils/:tilId" element={<TilDetailPage />} />
+            <Route path="/auth/sign-up" element={<SignUpPage />} />
+            <Route path="/auth/log-in" element={<LogInPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
